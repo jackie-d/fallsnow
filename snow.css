@@ -1,0 +1,13 @@
+/* .fallsnow {
+    position: fixed;
+    animation: move 5s forwards;
+} */
+
+@keyframes move {
+    from {
+        bottom: auto;
+    }
+    to {
+        bottom: 0;
+    }
+}
