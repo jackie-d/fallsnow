@@ -1,13 +1,10 @@
-/* .fallsnow {
+.overlay-message{
     position: fixed;
-    animation: move 5s forwards;
-} */
-
-@keyframes move {
-    from {
-        bottom: auto;
-    }
-    to {
-        bottom: 0;
-    }
+    top: 16px;
+    right: 16px;
+    z-index: 9999;
+    padding: 8px;
+    font-size: 12px;
+    background: white;
+    color: black;
 }
