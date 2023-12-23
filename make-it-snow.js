@@ -2,10 +2,19 @@
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 let idleCycles = 0;
+let IS_SOFT_MODE = sessionStorage.getItem("IS_SOFT_MODE") || false;
+let STOP_TIME = 0;
 
 (async () => {
 
+    //IS_SOFT_MODE = (await chrome.storage.session.get(["IS_SOFT_MODE"]).IS_SOFT_MODE) || false;
+
     while (1) {
+        if ( STOP_TIME > 0 ) {
+            await sleep(60*1000);
+            STOP_TIME--;
+            continue;
+        }
         if ( idleCycles > 10000 ) {
             await sleep(1000);
             continue;
@@ -57,6 +66,13 @@ async function makeItFall(element) {
 
     var rect = element.getBoundingClientRect();
 
+    if ( IS_SOFT_MODE ) {
+        let originalElement = element;
+        element = element.cloneNode(true);
+        element.style.position = 'fixed';
+        originalElement.parentNode.insertBefore(element, originalElement.nextSibling);
+    }
+
     element.style.position = 'fixed';
     element.style.top = rect.top + 'px';
     element.style.left = rect.left + 'px';
@@ -79,4 +95,28 @@ function isElementInTopOfTheViewport (el) {
         rect.top >= 0 &&
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) / 2   
     );
+}
+
+document.onkeydown = keydown;
+
+async function keydown(evt){
+  if (!evt) evt = event;
+  if (evt.ctrlKey && evt.key == 'm') {
+    IS_SOFT_MODE = !IS_SOFT_MODE;
+    sessionStorage.setItem("IS_SOFT_MODE", IS_SOFT_MODE);
+    //chrome.storage.session.set({ 'IS_SOFT_MODE': IS_SOFT_MODE })
+    showMessage(IS_SOFT_MODE ? 'Snow is not bad' : 'Snow is bad');
+  }
+  if (evt.ctrlKey && evt.key == 'q'){
+    STOP_TIME++;
+    showMessage(`Snow stopped for ${STOP_TIME} minutes`);
+  }
+}
+
+async function showMessage(text) {
+    const message = document.createElement("p");
+    message.innerHTML = text;
+    message.classList.add('overlay-message');
+    document.getElementsByTagName('body')[0].append(message);
+    sleep(1000).then(() => message.remove());
 }
