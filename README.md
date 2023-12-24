@@ -14,6 +14,14 @@ Load the folder by 'Load unpacked' button
 
 Open any webpage
 
+#### Set a light mode or the heavy one
+
+Shortcut CTRL+M
+
+#### On a website add 1 minute pause to the pieces snowfall
+
+Shortcut CTRL+Q
+
 ## Creator and contributors
 
 Author: Suns Deglinnocenti a.k.a. Jackie
