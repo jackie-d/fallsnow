@@ -7,7 +7,7 @@ let STOP_TIME = 0;
 
 (async () => {
 
-    //IS_SOFT_MODE = (await chrome.storage.session.get(["IS_SOFT_MODE"]).IS_SOFT_MODE) || false;
+    //IS_SOFT_MODE = (await chrome.storage.local.get(["IS_SOFT_MODE"]).IS_SOFT_MODE) || false;
 
     while (1) {
         if ( STOP_TIME > 0 ) {
@@ -104,7 +104,7 @@ async function keydown(evt){
   if (evt.ctrlKey && evt.key == 'm') {
     IS_SOFT_MODE = !IS_SOFT_MODE;
     sessionStorage.setItem("IS_SOFT_MODE", IS_SOFT_MODE);
-    //chrome.storage.session.set({ 'IS_SOFT_MODE': IS_SOFT_MODE })
+    //chrome.storage.local.set({ 'IS_SOFT_MODE': IS_SOFT_MODE })
     showMessage(IS_SOFT_MODE ? 'Snow is not bad' : 'Snow is bad');
   }
   if (evt.ctrlKey && evt.key == 'q'){
