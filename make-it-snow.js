@@ -22,6 +22,13 @@ let STOP_TIME = 0;
         const elems = document.body.getElementsByTagName("*");
         const index = Math.floor(Math.random() * (0 - elems.length + 1)) + elems.length;
         const randomElement = elems[index];
+        if( String(randomElement.className).indexOf('fallsnow') != -1 ) {
+            idleCycles++;
+            continue;
+        }
+        if( String(randomElement.className).indexOf('fallsnow-skip') != -1 ) {
+            continue;
+        }
         if ( 
                 randomElement instanceof SVGElement ||
                 randomElement.tagName == 'DIV' ||
@@ -44,13 +51,12 @@ let STOP_TIME = 0;
                 !isElementInTopOfTheViewport(randomElement)
             ) 
         {
+            randomElement.classList.add("fallsnow-skip");
             continue;
         }
-        if( String(randomElement.className).indexOf('fallsnow') != -1 ) {
-            idleCycles++;
-            continue;
+        if ( !IS_SOFT_MODE ) {
+            randomElement.classList.add("fallsnow");
         }
-        randomElement.classList.add("fallsnow");
         makeItFall(randomElement);
         const waitTime = Math.random() * 300 + 5;
         await sleep(waitTime);
@@ -81,9 +87,14 @@ async function makeItFall(element) {
 
     const ground = window.innerHeight - 40;
     const fallTime = Math.random() * 50 + 20;
+    let isSmoothSideMoveCounter = false;
 
     while ( parseInt(element.style.top) < ground ) {
         element.style.top = (parseInt(element.style.top) + 5) + 'px';
+        if ( isSmoothSideMoveCounter = !isSmoothSideMoveCounter ) {
+            const sideMove = Math.random() * 20 - 10;
+            element.style.left = (parseInt(element.style.left) + sideMove) + 'px';
+        }
         await sleep(fallTime);
     }
 }
