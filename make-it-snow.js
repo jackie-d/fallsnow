@@ -3,7 +3,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 let idleCycles = 0;
 let IS_SOFT_MODE = sessionStorage.getItem("IS_SOFT_MODE") || false;
-let STOP_TIME = 0;
+let STOP_TIME = sessionStorage.getItem("STOP_TIME") || 0;
 
 (async () => {
 
@@ -13,6 +13,7 @@ let STOP_TIME = 0;
         if ( STOP_TIME > 0 ) {
             await sleep(60*1000);
             STOP_TIME--;
+            sessionStorage.setItem("STOP_TIME", STOP_TIME);
             continue;
         }
         if ( idleCycles > 10000 ) {
@@ -120,6 +121,7 @@ async function keydown(evt){
   }
   if (evt.ctrlKey && evt.key == 'q'){
     STOP_TIME++;
+    sessionStorage.setItem("STOP_TIME", STOP_TIME);
     showMessage(`Snow stopped for ${STOP_TIME} minutes`);
   }
 }
