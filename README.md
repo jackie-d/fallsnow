@@ -2,7 +2,15 @@
 
 A Chrome Extension makes elements of the page falling down like snow.
 
-## Usage
+## Installation
+
+#### Install it on Google Chrome Browser
+
+Go to this page to install it: https://chromewebstore.google.com/u/4/detail/fallsnow/ncbkadbgclaojnbllpaickigakhnnkne
+
+Just navigate the web
+
+#### Or, manual installation
 
 Download the last release at: https://github.com/jackie-d/fallsnow/releases
 
