@@ -1,7 +1,7 @@
 {
   "name": "FallSnow",
   "description": "Elements of the page are falling down like snow",
-  "version": "0.99",
+  "version": "0.99.1",
   "manifest_version": 3,
   "action": {
     "default_popup": "fallsnow.html",
