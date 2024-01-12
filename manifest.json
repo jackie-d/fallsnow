@@ -20,7 +20,7 @@
       "world": "MAIN"
     }
   ],
-  "permissions": [
+  "_permissions": [
     "storage"
   ]
 }
